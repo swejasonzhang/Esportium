@@ -1,16 +1,28 @@
 import express from "express";
-import colors from "colors"
+import colors from "colors";
 import connectDB from "./config/db.js";
+import dotenv from "dotenv";
+import morgan from "morgan";
 
+dotenv.config();
 // MongoDB Connection
 connectDB();
 
-const app = express()
+const app = express();
 
-app.get("/", (req,res) => {
-    res.send("<h1>Server is listening / Path</h1>")
-})
+// Middlewares
+app.use(morgan("dev"))
 
-const PORT = 8000
+// Importing Routes
 
-app.listen(PORT, ()=>{ console.log(`Server is running at PORT ${PORT}`.bgMagenta)})
+import userRoutes from "./routes/userRoutes.js"
+
+// http://localhost:8080/
+// http://localhost:8080/api/v1/users
+app.use("/api/v1/users", userRoutes)
+
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log(`Server is running at PORT ${PORT}`.bgMagenta);
+});

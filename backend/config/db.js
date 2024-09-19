@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import colors from "colors"
+import colors from "colors";
 
 const connectDB = async () => {
   try {
-    const con = await mongoose.connect("mongodb://localhost:27017/Esportium");
+    const con = await mongoose.connect(`${process.env.MONGO_URL}`);
     console.log(`Connected to MongoDB ${con.connection.host}`.bgBlue);
   } catch (error) {
     console.log(`MongoDB Connection Error - ${error} `);
