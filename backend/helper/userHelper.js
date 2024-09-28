@@ -6,4 +6,4 @@ const encryptPassword = async (plainPassword) => {
   return encryptedPassword;
 };
 
-export { encryptPassword };
+export default encryptPassword;

@@ -1,5 +1,5 @@
-import userModel from "./models/userModel.js";
-import encryptPassword from "./helper/userHelper.js";
+import userModel from "../models/userModel.js";
+import encryptPassword from "../helper/userHelper.js";
 
 const registerController = async (req, res) => {
   try {
@@ -33,4 +33,4 @@ const registerController = async (req, res) => {
   }
 };
 
-export { registerController };
+export default registerController;
