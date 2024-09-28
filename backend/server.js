@@ -11,16 +11,16 @@ connectDB();
 const app = express();
 
 // Middlewares
-app.use(morgan("dev"))
-app.use(express.json())
+app.use(morgan("dev"));
+app.use(express.json());
 
 // Importing Routes
 
-import userRoutes from "./routes/userRoutes.js"
+import userRoutes from "./routes/userRoutes.js";
 
 // http://localhost:8080/
 // http://localhost:8080/api/v1/users
-app.use("/api/v1/users", userRoutes)
+app.use("/api/v1/users", userRoutes);
 
 const PORT = process.env.PORT;
 
