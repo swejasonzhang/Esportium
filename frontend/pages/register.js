@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,17 +13,20 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 export default function SignUp() {
-  const [inputValues, setInputValues] = useState({});
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputValues((values) => ({ ...values, [name]: value }));
+    const { name, value } = e.target;
+    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
+    console.log("Form Submitted", inputValues);
   };
 
   return (
@@ -46,7 +48,7 @@ export default function SignUp() {
                   placeholder="John Doe"
                   required
                   name="name"
-                  value={inputValues.username || ""}
+                  value={inputValues.name}
                   onChange={handleChange}
                 />
               </div>
@@ -58,7 +60,7 @@ export default function SignUp() {
                   placeholder="johndoe@example.com"
                   required
                   name="email"
-                  value={inputValues.email || ""}
+                  value={inputValues.email}
                   onChange={handleChange}
                 />
               </div>
@@ -69,7 +71,7 @@ export default function SignUp() {
                   type="password"
                   placeholder="*******"
                   name="password"
-                  value={inputValues.password || ""}
+                  value={inputValues.password}
                   onChange={handleChange}
                 />
               </div>
