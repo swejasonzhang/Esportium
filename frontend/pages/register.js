@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import { useState } from "react";
+import axios from "axios";
 
 export default function SignUp() {
   const [inputValues, setInputValues] = useState({
@@ -26,7 +26,16 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", inputValues);
+    axios
+      .post("http://localhost:8080/api/v1/users/register", inputValues, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
