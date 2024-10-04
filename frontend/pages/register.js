@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const [inputValues, setInputValues] = useState({
@@ -31,10 +32,20 @@ export default function SignUp() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response);
+        toast.success(response?.data?.message);
+        setInputValues({
+          name: "",
+          email: "",
+          password: "",
+        });
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.response?.data?.message);
+        setInputValues({
+          name: "",
+          email: "",
+          password: "",
+        });
       });
   };
 
