@@ -19,7 +19,11 @@ const registerController = async (req, res) => {
     }
 
     const hashedPassword = await encryptPassword(password);
-    const newUser = await userModel.create({ name, email, password: hashedPassword });
+    const newUser = await userModel.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
 
     return res
       .status(201)

@@ -32,7 +32,7 @@ export default function SignUp() {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.message, { autoClose: 2000 });
         setInputValues({
           name: "",
           email: "",
@@ -40,7 +40,7 @@ export default function SignUp() {
         });
       })
       .catch((error) => {
-        toast.error(error.response?.data?.message);
+        toast.error(error.response?.data?.message, { autoClose: 2000 });
         setInputValues({
           name: "",
           email: "",
