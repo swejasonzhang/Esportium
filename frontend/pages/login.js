@@ -11,10 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export const description =
-  "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account.";
-
-export function Login() {
+export default function Login() {
   return (
     <div className="h-screen flex justify-center items-center">
       <Card className="mx-auto max-w-sm">
@@ -31,7 +28,7 @@ export function Login() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="johndoe@example.com"
                 required
               />
             </div>
@@ -39,7 +36,7 @@ export function Login() {
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required placeholder="********"/>
             </div>
             <Button type="submit" className="w-full">
               Login

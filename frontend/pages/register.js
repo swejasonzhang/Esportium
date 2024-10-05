@@ -89,7 +89,7 @@ export default function Register() {
                 <Input
                   id="password"
                   type="password"
-                  placeholder="*******"
+                  placeholder="*********"
                   name="password"
                   value={inputValues.password}
                   onChange={handleChange}
