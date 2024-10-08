@@ -80,7 +80,7 @@ export default function Register() {
                   placeholder="johndoe@example.com"
                   required
                   name="email"
-                  value={inputValues.email}
+                  value={inputValues.email || ""}
                   onChange={handleChange}
                 />
               </div>
@@ -91,7 +91,7 @@ export default function Register() {
                   type="password"
                   placeholder="*********"
                   name="password"
-                  value={inputValues.password}
+                  value={inputValues.password || ""}
                   onChange={handleChange}
                 />
               </div>
