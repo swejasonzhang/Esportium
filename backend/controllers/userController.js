@@ -36,4 +36,29 @@ const registerController = async (req, res) => {
   }
 };
 
-export default registerController;
+const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .send({ success: false, message: "All fields are required." });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .send({ success: false, message: "Email not registered." });
+    }
+  } catch (error) {
+    console.log(`loginController Error: ${error}`);
+    return res
+      .status(400)
+      .send({ success: false, message: "error in loginController" }, error);
+  }
+};
+
+export { registerController, loginController };
