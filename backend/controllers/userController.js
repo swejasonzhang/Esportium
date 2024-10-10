@@ -1,5 +1,6 @@
 import userModel from "../models/userModel.js";
 import { encryptPassword, matchPassword } from "../helper/userHelper.js";
+import jwt from "jsonwebtoken";
 
 const registerController = async (req, res) => {
   try {
@@ -61,7 +62,7 @@ const loginController = async (req, res) => {
         .status(400)
         .send({ success: false, message: "Incorrect Email/Password." });
     }
-
+    jwt.sign({ id: user._id });
     user.password = undefined;
   } catch (error) {
     console.log(`loginController Error: ${error}`);

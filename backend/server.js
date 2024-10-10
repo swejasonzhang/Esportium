@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 // MongoDB Connection
@@ -15,7 +16,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-
+app.use(cookieParser())
 // Importing Routes
 
 import userRoutes from "./routes/userRoutes.js";
