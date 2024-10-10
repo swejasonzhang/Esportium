@@ -62,8 +62,15 @@ const loginController = async (req, res) => {
         .status(400)
         .send({ success: false, message: "Incorrect Email/Password." });
     }
-    jwt.sign({ id: user._id });
+    jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXP,
+    });
+
     user.password = undefined;
+
+    return res
+      .status(200)
+      .send({ success: true, message: "Login Succesful", user });
   } catch (error) {
     console.log(`loginController Error: ${error}`);
     return res
