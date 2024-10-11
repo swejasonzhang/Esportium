@@ -28,7 +28,7 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/v1/users/register", inputValues, {
+      .post(`${process.env.NEXT_PUBLIC_URL_BASE}/users/register`, inputValues, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {

@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [inputValues, setInputValues] = useState({
@@ -25,7 +28,8 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/v1/users/login", inputValues, {
+      .post(`${process.env.NEXT_PUBLIC_URL_BASE}/users/login`, inputValues, {
+        withCredentials: true,
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -61,6 +65,7 @@ export default function Login() {
                 <Input
                   id="email"
                   type="email"
+                  name="email"
                   placeholder="johndoe@example.com"
                   required
                   value={inputValues.email || ""}
@@ -78,6 +83,7 @@ export default function Login() {
                   placeholder="********"
                   value={inputValues.password || ""}
                   onChange={handleChange}
+                  name="password"
                 />
               </div>
               <Button type="submit" className="w-full">
