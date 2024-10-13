@@ -11,14 +11,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "../store/features/auth/authSlice";
 
 export default function Login() {
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,24 +29,13 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${process.env.NEXT_PUBLIC_URL_BASE}/users/login`, inputValues, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-      })
+    dispatch(login(inputValues))
+      .unwrap()
       .then((response) => {
-        toast.success(response?.data?.message, { autoClose: 2000 });
-        setInputValues({
-          email: "",
-          password: "",
-        });
+        console.log(response);
       })
       .catch((error) => {
-        toast.error(error.response?.data?.message, { autoClose: 2000 });
-        setInputValues({
-          email: "",
-          password: "",
-        });
+        console.log(error);
       });
   };
 
