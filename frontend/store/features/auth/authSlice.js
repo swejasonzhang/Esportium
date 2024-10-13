@@ -15,8 +15,12 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   }
 });
 
+const getUserDataFromLocalStorage = window.localStorage.getItem("user")
+  ? JSON.parse(window.localStorage.getItem("user"))
+  : null;
+
 export const authSlice = createSlice({
-  name: "auth",
+  name: getUserDataFromLocalStorage,
   initialState,
   reducers: {
     incrementByAmount: (state, action) => {

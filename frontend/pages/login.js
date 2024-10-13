@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [inputValues, setInputValues] = useState({
@@ -33,6 +34,12 @@ export default function Login() {
       .unwrap()
       .then((response) => {
         console.log(response);
+
+        if (response?.success == true) {
+          toast.success(response?.message, { autoClose: 2000 });
+        } else {
+          toast.error(response?.message, { autoClose: 2000 });
+        }
       })
       .catch((error) => {
         console.log(error);
