@@ -80,4 +80,11 @@ const loginController = async (req, res) => {
   }
 };
 
-export { registerController, loginController };
+const logoutController = async (req, res) => {
+  return res
+    .cookie("token", "", { httpOnly: true, secure: true, expires: new Date(0) })
+    .status(200)
+    .send({ success: true, message: "Logout Successful." });
+};
+
+export { registerController, loginController, logoutController };
