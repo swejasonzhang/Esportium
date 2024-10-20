@@ -26,7 +26,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function DashboardPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLogout = () => {
     axios
@@ -38,13 +38,14 @@ export default function DashboardPage() {
       })
       .then((response) => {
         window.localStorage.removeItem("user");
+        toast.success(response?.data?.message, { autoClose: 2000 });
         setTimeout(() => {
           router.push("/login");
-        });
-        console.log(response);
+        }, 2000);
       })
       .catch((error) => {
-        console.log(error);
+        window.localStorage.removeItem("user");
+        toast.success(error?.response?.data?.message);
       });
   };
 
