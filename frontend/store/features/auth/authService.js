@@ -2,7 +2,7 @@ import axios from "axios";
 
 const loginUser = async (userData) => {
   const axiosResponse = axios
-    .post(`${process.env.NEXT_PUBLIC_BASE_URL}/users/login`, userData, {
+    .post(`${process.env.NEXT_PUBLIC_URL_BASE}/users/login`, userData, {
       withCredentials: true,
       headers: { "Content-Type": "application/json" },
     })

@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [inputValues, setInputValues] = useState({
@@ -22,6 +23,7 @@ export default function Login() {
   });
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +39,9 @@ export default function Login() {
 
         if (response?.success == true) {
           toast.success(response?.message, { autoClose: 2000 });
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 2000);
         } else {
           toast.error(response?.message, { autoClose: 2000 });
         }

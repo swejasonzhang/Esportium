@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 export default function Register() {
   const [inputValues, setInputValues] = useState({
@@ -19,6 +20,8 @@ export default function Register() {
     email: "",
     password: "",
   });
+
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +41,10 @@ export default function Register() {
           email: "",
           password: "",
         });
+
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
       })
       .catch((error) => {
         toast.error(error.response?.data?.message, { autoClose: 2000 });

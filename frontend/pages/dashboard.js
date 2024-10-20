@@ -22,8 +22,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function DashboardPage() {
+  const router = useRouter()
+
+  const handleLogout = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_URL_BASE}/users/logout`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        window.localStorage.removeItem("user");
+        setTimeout(() => {
+          router.push("/login");
+        });
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -153,7 +177,9 @@ export default function DashboardPage() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <button className="px-3 py-2" onClick={handleLogout}>
+                Logout
+              </button>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
