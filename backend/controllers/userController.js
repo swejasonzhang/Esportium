@@ -87,8 +87,28 @@ const logoutController = async (req, res) => {
     .send({ success: true, message: "Logout Successful." });
 };
 
-const allUsersController = async (req,res) => {
+const allUsersController = async (req, res) => {
+  try {
+    const users = await userModel.find({});
 
-}
+    if (!users) {
+      return res
+        .status(404)
+        .send({ success: false, message: "No users found in database." });
+    }
 
-export { registerController, loginController, logoutController, allUsersController };
+    return res.status(200).send({ success: true, total: users.length, users });
+  } catch (error) {
+    console.log(`allUsersController Error ${error}`);
+    return res
+      .status(400)
+      .send({ sucess: false, message: "error in allUsersController" }, error);
+  }
+};
+
+export {
+  registerController,
+  loginController,
+  logoutController,
+  allUsersController,
+};
