@@ -87,4 +87,8 @@ const logoutController = async (req, res) => {
     .send({ success: true, message: "Logout Successful." });
 };
 
-export { registerController, loginController, logoutController };
+const allUsersController = async (req,res) => {
+
+}
+
+export { registerController, loginController, logoutController, allUsersController };
