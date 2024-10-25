@@ -89,7 +89,7 @@ const logoutController = async (req, res) => {
 
 const allUsersController = async (req, res) => {
   try {
-    const users = await userModel.find({});
+    const users = await userModel.find({}).select("-password");
 
     if (!users) {
       return res

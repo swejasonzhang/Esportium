@@ -23,9 +23,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function UsersPage() {
+  const [users, setUsers] = useState({});
+
   const getAllUsers = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/users/all-users`, {
@@ -36,6 +38,7 @@ export default function UsersPage() {
       })
       .then((response) => {
         console.log(response);
+        setUsers(response?.data);
       })
       .catch((error) => {
         console.log(error);
@@ -186,9 +189,10 @@ export default function UsersPage() {
           className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
           x-chunk="dashboard-02-chunk-1"
         >
-          <div className="flex flex-col items-center gap-1 text-center"></div>
+          <div className="flex flex-col items-center gap-1 text-center">
+            {JSON.stringify(users, undefined, 4)}
+          </div>
         </div>
-        P
       </div>
     </div>
   );
