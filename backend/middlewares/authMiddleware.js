@@ -24,4 +24,26 @@ const isAuthorized = async (req, res, next) => {
   }
 };
 
-export default isAuthorized;
+const isAdmin = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    if (!user || user.role !== -1) {
+      return res.status(401).send({
+        success: false,
+        message: "You are not authorized to access this resource",
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.log(`isAdmin middleware Error ${error}`);
+    return res.status(400).send({
+      success: false,
+      message: "error in isAdmin middleware",
+      error,
+    });
+  }
+};
+
+export { isAuthorized, isAdmin };
