@@ -24,19 +24,23 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import axios from "axios";
 import { useRouter, useSelector } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [message, setMessage] = useState(null);
   const user = useSelector((state) => state.auth.user?.user);
-  console.log(user);
 
   useEffect(() => {
     if (!user) {
       setTimeout(() => {
+        setMessage("You are not logged in. Redirecting you to login page.");
         router.push("/login");
       }, 3000);
     } else if (!user.role !== 1) {
+      setMessage(
+        "You are not authorized to access this resource. Redirecting you to Homepage."
+      );
       setTimeout(() => {
         router.push("/");
       }, [3000]);
@@ -63,6 +67,16 @@ export default function DashboardPage() {
         toast.success(error?.response?.data?.message);
       });
   };
+
+  if (message) {
+    return (
+      <div className="h-screen justify-center items-center">
+        <div className="text-center">
+          <p>{message}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
