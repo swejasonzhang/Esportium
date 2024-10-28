@@ -23,10 +23,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter, useSelector } from "next/router";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const user = useSelector((state) => state.auth.user?.user);
+  console.log(user);
+
+  useEffect(() => {
+    if (!user) {
+      setTimeout(() => {
+        router.push("/login");
+      }, 3000);
+    } else if (!user.role !== 1) {
+      setTimeout(() => {
+        router.push("/");
+      }, [3000]);
+    }
+  }, [user, router]);
 
   const handleLogout = () => {
     axios
