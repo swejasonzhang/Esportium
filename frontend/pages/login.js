@@ -35,8 +35,6 @@ export default function Login() {
     dispatch(login(inputValues))
       .unwrap()
       .then((response) => {
-        console.log(response);
-
         if (response?.success == true) {
           toast.success(response?.message, { autoClose: 2000 });
           setTimeout(() => {
@@ -47,7 +45,7 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error, { autoClose: 2000 });
       });
   };
 

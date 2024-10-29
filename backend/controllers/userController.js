@@ -28,7 +28,7 @@ const registerController = async (req, res) => {
 
     return res
       .status(201)
-      .send({ success: true, message: "User registration sucessful", newUser });
+      .send({ success: true, message: "User registration successful", newUser });
   } catch (error) {
     console.log(`registerController Error ${error}`);
     return res
@@ -102,7 +102,7 @@ const allUsersController = async (req, res) => {
     console.log(`allUsersController Error ${error}`);
     return res
       .status(400)
-      .send({ sucess: false, message: "error in allUsersController" }, error);
+      .send({ success: false, message: "error in allUsersController" }, error);
   }
 };
 
