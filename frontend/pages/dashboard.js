@@ -37,7 +37,7 @@ export default function DashboardPage() {
         setMessage("You are not logged in. Redirecting you to login page.");
         router.push("/login");
       }, 3000);
-    } else if (!user.role !== 1) {
+    } else if (user.role !== 1) {
       setMessage(
         "You are not authorized to access this resource. Redirecting you to Homepage."
       );
@@ -72,7 +72,7 @@ export default function DashboardPage() {
     return (
       <div className="h-screen justify-center items-center">
         <div className="text-center">
-          <p>{message}</p>
+          <p className="text-3xl ">{message}</p>
         </div>
       </div>
     );
