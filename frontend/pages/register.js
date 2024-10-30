@@ -10,9 +10,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { register } from "../store/features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function Register() {
   const [inputValues, setInputValues] = useState({
@@ -22,6 +23,7 @@ export default function Register() {
   });
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,29 +32,20 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${process.env.NEXT_PUBLIC_URL_BASE}/users/register`, inputValues, {
-        headers: { "Content-Type": "application/json" },
-      })
+    dispatch(register(inputValues))
+      .unwrap()
       .then((response) => {
-        toast.success(response?.data?.message, { autoClose: 2000 });
-        setInputValues({
-          name: "",
-          email: "",
-          password: "",
-        });
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
+        if (response?.success == true) {
+          toast.success(response?.message, { autoClose: 2000 });
+          setTimeout(() => {
+            router.push("/dashboard");
+          }, 2000);
+        } else {
+          toast.error(response?.message, { autoClose: 2000 });
+        }
       })
       .catch((error) => {
-        toast.error(error.response?.data?.message, { autoClose: 2000 });
-        setInputValues({
-          name: "",
-          email: "",
-          password: "",
-        });
+        toast.error(error, { autoClose: 2000 });
       });
   };
 
