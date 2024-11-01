@@ -64,15 +64,39 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(register.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.status = "success";
+        state.user = action.payload;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
       .addCase(login.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = "success";
         state.user = action.payload;
-        window.localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(login.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+      .addCase(logout.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.status = "success";
+        state.user = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
