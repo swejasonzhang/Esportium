@@ -7,11 +7,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -22,6 +23,7 @@ export default function Login() {
     password: "",
   });
 
+  const status = useSelector((state) => state.auth.status);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -52,14 +54,14 @@ export default function Login() {
   return (
     <div className="h-screen flex justify-center items-center">
       <Card className="mx-auto max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <CardHeader>
+            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardDescription>
+              Enter your email below to login to your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -91,14 +93,22 @@ export default function Login() {
                 Login
               </Button>
             </div>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign up
-            </Link>
-          </div>
-        </CardContent>
+          </CardContent>
+          <CardFooter>
+            <Button
+              className="w-full"
+              disabled={status == "loading" ? true : false}
+            >
+              {status == "loading" ? "Signing In..." : "Sign In"}
+            </Button>
+          </CardFooter>
+        </form>
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="underline">
+            Sign up
+          </Link>
+        </div>
       </Card>
     </div>
   );
