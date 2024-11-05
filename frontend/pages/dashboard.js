@@ -22,14 +22,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import axios from "axios";
 import { useRouter, useSelector } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useDispatch } from "react";
+import { logout } from "../store/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [message, setMessage] = useState(null);
   const user = useSelector((state) => state.auth.user?.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
@@ -48,23 +50,20 @@ export default function DashboardPage() {
   }, [user, router]);
 
   const handleLogout = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_URL_BASE}/users/logout`, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+    dispatch(logout())
+      .unwrap()
       .then((response) => {
-        window.localStorage.removeItem("user");
-        toast.success(response?.data?.message, { autoClose: 2000 });
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
+        if (response?.success == true) {
+          toast.success(response?.message, { autoClose: 2000 });
+          setTimeout(() => {
+            router.push("/");
+          }, 2000);
+        } else {
+          toast.error(response?.message, { autoClose: 2000 });
+        }
       })
       .catch((error) => {
-        window.localStorage.removeItem("user");
-        toast.success(error?.response?.data?.message);
+        toast.error(error, { autoClose: 2000 });
       });
   };
 
