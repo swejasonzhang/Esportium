@@ -13,7 +13,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { register } from "../store/features/auth/authSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
   const [inputValues, setInputValues] = useState({
@@ -24,6 +24,7 @@ export default function Register() {
 
   const router = useRouter();
   const dispatch = useDispatch();
+  const status = useSelector((state) => state.auth.status);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,11 +96,18 @@ export default function Register() {
                   onChange={handleChange}
                 />
               </div>
-              <Button type="submit" className="w-full">
-                Create an account
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={status == "loading" ? true : false}
+              >
+                {status == "loading" ? "Creating Account..." : "Create Account"}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div
+              className="mt-4 text-center text-sm"
+              disabled={status == "loading" ? true : false}
+            >
               Already have an account?{" "}
               <Link href="/login" className="underline">
                 Sign in
