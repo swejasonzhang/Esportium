@@ -22,42 +22,35 @@ function NavBar() {
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <Package2 className="h-6 w-6" />
+            <p className="text-xl">
+              Dash<span className="text-orange-500">Board</span>
+            </p>
             <span className="sr-only">Dashboard</span>
           </Link>
 
           <Link
-            href="#"
+            to="/"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Dashboard
+            Home
           </Link>
           <Link
-            href="#"
+            to="/shop"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            {" "}
-            Orders{" "}
+            Shop
           </Link>
           <Link
-            href="#"
+            to="/about"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            {" "}
-            Products
+            About
           </Link>
           <Link
-            href="#"
+            to="/contact"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            {" "}
-            Customers
-          </Link>
-          <Link
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            {" "}
-            Settings
+            Contact
           </Link>
         </nav>
         <Sheet>
