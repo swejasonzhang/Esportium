@@ -75,38 +75,28 @@ function NavBar() {
               </Link>
 
               <Link
-                href="#"
+                to=""
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                Dashboard
+                Home
               </Link>
               <Link
-                href="#"
+                to="/shop"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                {" "}
-                Orders{" "}
+                Shop
               </Link>
               <Link
-                href="#"
+                to="/about"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                {" "}
-                Products
+                About
               </Link>
               <Link
-                href="#"
+                to="/contact"
                 className="text-muted-foreground transition-colors hover:text-foreground"
               >
-                {" "}
-                Customers
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {" "}
-                Settings
+                Contact
               </Link>
             </nav>
           </SheetContent>
