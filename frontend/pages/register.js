@@ -56,7 +56,7 @@ export default function Register() {
         <CardHeader>
           <CardTitle className="text-xl">Sign Up</CardTitle>
           <CardDescription>
-            Enter your information to create an account
+            Enter your information to create an account.
           </CardDescription>
         </CardHeader>
         <CardContent>
