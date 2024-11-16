@@ -10,8 +10,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
+import { logout } from "@/store/features/auth/authSlice.js";
 
 function NavBar() {
+  const handleLogout = () => {
+    dispatch(logout())
+      .unwrap()
+      .then((response) => {
+        if (response?.success == true) {
+          toast.success(response?.message, { autoClose: 2000 });
+          setTimeout(() => {
+            router.push("/");
+          }, 2000);
+        } else {
+          toast.error(response?.message, { autoClose: 2000 });
+        }
+      })
+      .catch((error) => {
+        toast.error(error, { autoClose: 2000 });
+      });
+  };
+
   return (
     <>
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -117,7 +136,9 @@ function NavBar() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <button onClick={handleLogout}>Logout</button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
