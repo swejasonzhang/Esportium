@@ -11,8 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { logout } from "@/store/features/auth/authSlice.js";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function NavBar() {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleLogout = () => {
     dispatch(logout())
       .unwrap()
