@@ -11,13 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { logout } from "@/store/features/auth/authSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 function NavBar() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const user = useSelector((state) => state.auth.user);
   const handleLogout = () => {
     dispatch(logout())
       .unwrap()
@@ -125,27 +126,42 @@ function NavBar() {
           </SheetContent>
         </Sheet>
         <div className="flex w-full items-center gap-4 ml-auto md:gap-2 lg:gap-4">
-          <form className="ml-auto  sm:flex-initial">
+          <div className="ml-auto  sm:flex-initial">
             <div className="relative">Cart (0)</div>
-          </form>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChildsChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
+          </div>
+          {user == null ? (
+            <div>
+              <Button variant="outline" className="me-2">
+                <Link to="/login">Login</Link>
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <button onClick={handleLogout}>Logout</button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <Button>
+                <Link to="/register">Register</Link>
+              </Button>
+            </div>
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChildsChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full"
+                >
+                  <CircleUser className="h-5 w-5" />
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <button onClick={handleLogout}>Logout</button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </header>
     </>
