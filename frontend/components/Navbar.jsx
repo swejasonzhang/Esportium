@@ -140,7 +140,7 @@ function NavBar() {
             </div>
           ) : (
             <DropdownMenu>
-              <DropdownMenuTrigger asChildsChild>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant="secondary"
                   size="icon"
@@ -153,7 +153,13 @@ function NavBar() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>
+                  {user.role !== 1 ? (
+                    <Link to="/admin">Admin Dashboard</Link>
+                  ) : (
+                    <Link to="/profile">Profile</Link>
+                  )}
+                </DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
