@@ -36,12 +36,12 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!user) {
       setTimeout(() => {
-        setMessage("You are not logged in. Redirecting you to login page.");
+        setMessage("You are not logged in. Redirecting you to login page!");
         router.push("/login");
       }, 3000);
     } else if (user.role !== 1) {
       setMessage(
-        "You are not authorized to access this resource. Redirecting you to Homepage."
+        "You are not authorized to access this resource. Redirecting you to Homepage!"
       );
       setTimeout(() => {
         router.push("/");
@@ -91,7 +91,7 @@ export default function DashboardPage() {
             </Link>
             <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
               <Bell className="h-4 w-4" />
-              <span className="sr-only">Toggle notifications</span>
+              <span className="sr-only">Toggle notifications.</span>
             </Button>
           </div>
           <div className="flex-1">
@@ -111,11 +111,11 @@ export default function DashboardPage() {
                 Orders
               </Link>
               <Link
-                href="/products"
+                href="/catagories"
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <Package className="h-4 w-4" />
-                Products{" "}
+                Catagories
               </Link>
               <Link
                 href="/users"
@@ -138,7 +138,7 @@ export default function DashboardPage() {
                 className="shrink-0 md:hidden"
               >
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
+                <span className="sr-only">Toggle navigation menu.</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
@@ -165,11 +165,11 @@ export default function DashboardPage() {
                   Orders
                 </Link>
                 <Link
-                  href="/products"
+                  href="/catagories"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Package className="h-5 w-5" />
-                  Products
+                  Catagories
                 </Link>
                 <Link
                   href="/customers"
