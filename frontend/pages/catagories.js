@@ -10,6 +10,14 @@ import {
 import { Input } from "@/components/ui/input";
 
 function Catagories() {
+  const [inputValues, setInputValues] = useState({});
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputValues((values) => ({ ...values, [name]: value }));
+  };
+
   return (
     <>
       <Card>
@@ -21,11 +29,19 @@ function Catagories() {
         </CardHeader>
         <CardContent>
           <form>
-            <Input placeholder="Dashboard" />
+            <Input
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+              name="email"
+              value={inputValues.email || ""}
+              onChange={handleChange}
+            />
           </form>
         </CardContent>
         <CardFooter className="border-t px-6 py-4">
-          <Button>Save</Button>
+          <Button>Save!</Button>
         </CardFooter>
       </Card>
     </>

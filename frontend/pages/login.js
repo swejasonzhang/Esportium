@@ -28,8 +28,9 @@ export default function Login() {
   const router = useRouter();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputValues((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (e) => {
