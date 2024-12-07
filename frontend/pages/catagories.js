@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter,
@@ -18,26 +17,30 @@ function Catagories() {
     setInputValues((values) => ({ ...values, [name]: value }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Dashboard</CardTitle>
-          <CardDescription>
-            Used to identify your store in the marketplace.
-          </CardDescription>
+          <CardTitle>Add Catagory</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-              name="email"
-              value={inputValues.email || ""}
-              onChange={handleChange}
-            />
+          <form onSubmit={handleSubmit}>
+            <div className="flex ">
+              <Input
+                className="m0-2"
+                id="name"
+                type="text"
+                placeholder="Catagory Name"
+                required
+                name="email"
+                value={inputValues.email || ""}
+                onChange={handleChange}
+              />
+            </div>
           </form>
         </CardContent>
         <CardFooter className="border-t px-6 py-4">
